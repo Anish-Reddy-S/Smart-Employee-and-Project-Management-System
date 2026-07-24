@@ -235,7 +235,7 @@ To sign in and test the system, you can use the default seeded account or regist
 ---
 
 ## Postman Collection
-A complete Postman collection is included in the workspace at [SmartManager_API.postman_collection.json](file:///c:/Users/sanna/Downloads/Evernorth/backend/docs/postman/SmartManager_API.postman_collection.json).
+A complete Postman collection is included in the workspace at [SmartManager_API.postman_collection.json](file:///c:/Users/sanna/Downloads/Evernorth/SmartManager_API.postman_collection.json).
 
 Import this collection into Postman to run tests for:
 - User Authentication (Login, Register JWT validation)
@@ -440,7 +440,7 @@ INSERT INTO employees (employee_code, first_name, last_name, email, phone, depar
 ## Folder Structure
 
 ```
-Evernorth/
+Smart-Employee-and-Project-Management-System/
 ├── backend/                  # Spring Boot 3 Java Maven backend
 │   ├── src/                  # Source code (Controllers, Services, Security, JPA)
 │   ├── pom.xml               # Maven dependency configuration
@@ -450,6 +450,7 @@ Evernorth/
 │   ├── package.json          # Node dependencies & run scripts
 │   └── tsconfig.json         # TypeScript compiler rules
 ├── db_setup.sql              # Combined DDL Schema & DML data seed script
+├── SmartManager_API.postman_collection.json  # Exported Postman API collection
 ├── docker-compose.yml        # Orchestration composition script
 └── README.md                 # Project README documentation
 ```
