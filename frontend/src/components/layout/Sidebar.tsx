@@ -146,6 +146,16 @@ export const MODULE_ITEMS: ModuleMenuItem[] = [
     badgeColor: 'warning',
     allowedRoles: ['EMPLOYEE'],
   },
+  {
+    id: 'employee_reports',
+    title: 'My Reports',
+    subtitle: 'Attendance, Leaves & Payslips',
+    icon: <ReportsIcon fontSize="small" />,
+    badge: 'REPORTS',
+    badgeColor: 'secondary',
+    allowedRoles: ['EMPLOYEE'],
+  },
+
 
   // Common Action
   {

@@ -99,10 +99,10 @@ export const ReportsModuleView: React.FC = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.5 }}>
             <AttendanceIcon sx={{ color: 'primary.main', fontSize: 26 }} />
             <Typography variant="h5" sx={{ fontWeight: 800 }}>
-              Attendance, Leaves & Payroll
+              {activeRole === 'EMPLOYEE' ? 'My History & Statements' : 'Attendance, Leaves & Payroll'}
             </Typography>
             <Chip
-              label="ENTERPRISE AUDIT"
+              label={activeRole === 'EMPLOYEE' ? 'EMPLOYEE PORTAL' : 'ENTERPRISE AUDIT'}
               color="info"
               variant="outlined"
               size="small"
@@ -110,12 +110,14 @@ export const ReportsModuleView: React.FC = () => {
             />
           </Box>
           <Typography variant="body2" color="text.secondary">
-            Daily time logs, automated check-in/out, leave request approval workflow & salary pay slip generator.
+            {activeRole === 'EMPLOYEE'
+              ? 'View your past attendance logs, leave requests, and payroll statements.'
+              : 'Daily time logs, automated check-in/out, leave request approval workflow & salary pay slip generator.'}
           </Typography>
         </Box>
 
         <Box sx={{ display: 'flex', gap: 1.5 }}>
-          {activeTab === 0 && (
+          {activeRole !== 'EMPLOYEE' && activeTab === 0 && (
             <Button
               variant="contained"
               color="success"
@@ -127,7 +129,7 @@ export const ReportsModuleView: React.FC = () => {
             </Button>
           )}
 
-          {activeTab === 1 && (
+          {activeRole !== 'EMPLOYEE' && activeTab === 1 && (
             <Button
               variant="contained"
               startIcon={<AddIcon />}
@@ -149,11 +151,14 @@ export const ReportsModuleView: React.FC = () => {
             pt: 1,
           }}
         >
-          <Tab icon={<AttendanceIcon sx={{ fontSize: 18 }} />} iconPosition="start" label="Daily Attendance Logs" />
-          <Tab icon={<LeaveIcon sx={{ fontSize: 18 }} />} iconPosition="start" label="Leave Requests & Approvals" />
-          <Tab icon={<PayrollIcon sx={{ fontSize: 18 }} />} iconPosition="start" label="Payroll & Payslip Statements" />
-          <Tab icon={<AssessmentIcon sx={{ fontSize: 18 }} />} iconPosition="start" label="Project & Task Analytics Reports" />
+          <Tab icon={<AttendanceIcon sx={{ fontSize: 18 }} />} iconPosition="start" label={activeRole === 'EMPLOYEE' ? 'My Attendance Logs' : 'Daily Attendance Logs'} />
+          <Tab icon={<LeaveIcon sx={{ fontSize: 18 }} />} iconPosition="start" label={activeRole === 'EMPLOYEE' ? 'My Leave Requests' : 'Leave Requests & Approvals'} />
+          <Tab icon={<PayrollIcon sx={{ fontSize: 18 }} />} iconPosition="start" label={activeRole === 'EMPLOYEE' ? 'My Payroll & Payslips' : 'Payroll & Payslip Statements'} />
+          {activeRole !== 'EMPLOYEE' && (
+            <Tab icon={<AssessmentIcon sx={{ fontSize: 18 }} />} iconPosition="start" label="Project & Task Analytics Reports" />
+          )}
         </Tabs>
+
 
         <Box sx={{ p: 3 }}>
           {/* TAB 0: ATTENDANCE LOGS */}
@@ -164,20 +169,23 @@ export const ReportsModuleView: React.FC = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>Date</TableCell>
-                      <TableCell>Employee Name</TableCell>
+                      {activeRole !== 'EMPLOYEE' && <TableCell>Employee Name</TableCell>}
                       <TableCell>Check-In Time</TableCell>
                       <TableCell>Check-Out Time</TableCell>
                       <TableCell>Total Work Hours</TableCell>
                       <TableCell>Status</TableCell>
                       <TableCell>IP Address</TableCell>
-                      <TableCell align="right">Actions</TableCell>
+                      {activeRole !== 'EMPLOYEE' && <TableCell align="right">Actions</TableCell>}
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {attendance.map((a) => (
+                    {(activeRole === 'EMPLOYEE'
+                      ? attendance.filter((a) => a.employeeId === (user?.id || 1) || a.employeeName.includes(user?.firstName || 'Alex'))
+                      : attendance
+                    ).map((a) => (
                       <TableRow key={a.id} hover>
                         <TableCell sx={{ fontWeight: 700 }}>{a.date}</TableCell>
-                        <TableCell sx={{ fontWeight: 600 }}>{a.employeeName}</TableCell>
+                        {activeRole !== 'EMPLOYEE' && <TableCell sx={{ fontWeight: 600 }}>{a.employeeName}</TableCell>}
                         <TableCell sx={{ color: 'success.main', fontWeight: 700 }}>{a.checkInTime}</TableCell>
                         <TableCell sx={{ color: 'error.main', fontWeight: 700 }}>{a.checkOutTime}</TableCell>
                         <TableCell sx={{ fontWeight: 700 }}>{a.totalHours} hrs</TableCell>
@@ -191,13 +199,15 @@ export const ReportsModuleView: React.FC = () => {
                           />
                         </TableCell>
                         <TableCell><code>{a.ipAddress}</code></TableCell>
-                        <TableCell align="right">
-                          {a.checkOutTime === '-' && (
-                            <Button size="small" variant="outlined" color="warning" onClick={() => checkOut(a.employeeId)}>
-                              Check-Out
-                            </Button>
-                          )}
-                        </TableCell>
+                        {activeRole !== 'EMPLOYEE' && (
+                          <TableCell align="right">
+                            {a.checkOutTime === '-' && (
+                              <Button size="small" variant="outlined" color="warning" onClick={() => checkOut(a.employeeId)}>
+                                Check-Out
+                              </Button>
+                            )}
+                          </TableCell>
+                        )}
                       </TableRow>
                     ))}
                   </TableBody>
@@ -214,19 +224,24 @@ export const ReportsModuleView: React.FC = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>Applied Date</TableCell>
-                      <TableCell>Employee</TableCell>
+                      {activeRole !== 'EMPLOYEE' && <TableCell>Employee</TableCell>}
                       <TableCell>Leave Type</TableCell>
                       <TableCell>Duration</TableCell>
                       <TableCell>Reason</TableCell>
                       <TableCell>Status</TableCell>
-                      <TableCell align="right">Manager Action</TableCell>
+                      <TableCell align="right">
+                        {activeRole === 'EMPLOYEE' ? 'Approved By' : 'Manager Action'}
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {leaves.map((l) => (
+                    {(activeRole === 'EMPLOYEE'
+                      ? leaves.filter((l) => l.employeeId === (user?.id || 1) || l.employeeName.includes(user?.firstName || 'Alex'))
+                      : leaves
+                    ).map((l) => (
                       <TableRow key={l.id} hover>
                         <TableCell sx={{ fontWeight: 700 }}>{l.appliedDate}</TableCell>
-                        <TableCell sx={{ fontWeight: 600 }}>{l.employeeName}</TableCell>
+                        {activeRole !== 'EMPLOYEE' && <TableCell sx={{ fontWeight: 600 }}>{l.employeeName}</TableCell>}
                         <TableCell sx={{ fontWeight: 700, color: 'primary.main' }}>
                           {l.leaveType.replace('_', ' ')}
                         </TableCell>
@@ -242,7 +257,11 @@ export const ReportsModuleView: React.FC = () => {
                           />
                         </TableCell>
                         <TableCell align="right">
-                          {l.status === 'PENDING' && (activeRole === 'ROLE_ADMIN' || activeRole === 'ROLE_MANAGER') ? (
+                          {activeRole === 'EMPLOYEE' ? (
+                            <Typography variant="body2" color="text.secondary">
+                              {l.approvedBy || '—'}
+                            </Typography>
+                          ) : l.status === 'PENDING' && (activeRole === 'ADMIN' || activeRole === 'ROLE_ADMIN' || activeRole === 'ROLE_MANAGER') ? (
                             <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-end' }}>
                               <Button
                                 size="small"
@@ -285,7 +304,7 @@ export const ReportsModuleView: React.FC = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>Month</TableCell>
-                      <TableCell>Employee</TableCell>
+                      {activeRole !== 'EMPLOYEE' && <TableCell>Employee</TableCell>}
                       <TableCell>Basic Salary</TableCell>
                       <TableCell>Bonuses</TableCell>
                       <TableCell>Deductions</TableCell>
@@ -295,10 +314,13 @@ export const ReportsModuleView: React.FC = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {payrolls.map((p) => (
+                    {(activeRole === 'EMPLOYEE'
+                      ? payrolls.filter((p) => p.employeeId === (user?.id || 1) || p.employeeName.includes(user?.firstName || 'Alex'))
+                      : payrolls
+                    ).map((p) => (
                       <TableRow key={p.id} hover>
                         <TableCell sx={{ fontWeight: 700 }}>{p.month}</TableCell>
-                        <TableCell sx={{ fontWeight: 600 }}>{p.employeeName}</TableCell>
+                        {activeRole !== 'EMPLOYEE' && <TableCell sx={{ fontWeight: 600 }}>{p.employeeName}</TableCell>}
                         <TableCell>₹{p.basicSalary.toLocaleString('en-IN')}</TableCell>
                         <TableCell sx={{ color: 'success.main', fontWeight: 600 }}>+₹{p.allowances.toLocaleString('en-IN')}</TableCell>
                         <TableCell sx={{ color: 'error.main', fontWeight: 600 }}>-₹{p.deductions.toLocaleString('en-IN')}</TableCell>
@@ -318,7 +340,7 @@ export const ReportsModuleView: React.FC = () => {
                           <Button size="small" variant="outlined" startIcon={<PrintIcon />} onClick={() => handleOpenPayslip(p)}>
                             View Slip
                           </Button>
-                          {p.status === 'PROCESSED' && (activeRole === 'ROLE_ADMIN' || activeRole === 'ROLE_MANAGER') && (
+                          {activeRole !== 'EMPLOYEE' && p.status === 'PROCESSED' && (activeRole === 'ADMIN' || activeRole === 'ROLE_ADMIN' || activeRole === 'ROLE_MANAGER') && (
                             <Button size="small" variant="contained" color="success" sx={{ ml: 1 }} onClick={() => markPayrollPaid(p.id)}>
                               Mark Paid
                             </Button>
@@ -333,8 +355,9 @@ export const ReportsModuleView: React.FC = () => {
           )}
 
           {/* TAB 3: PROJECT & TASK REPORTS */}
-          {activeTab === 3 && (
+          {activeTab === 3 && activeRole !== 'EMPLOYEE' && (
             <Box>
+
               {/* Report Sub-Tabs Navigation */}
               <Stack direction="row" spacing={1.5} sx={{ mb: 3, flexWrap: 'wrap', gap: 1 }}>
                 <Button

@@ -62,6 +62,64 @@ flowchart TD
 
 ---
 
+## 🔑 Authentication & Login Credentials
+
+To access the Smart Manager ERP portal, you can sign in using the seeded administrator account or register a new account via the portal's self-registration form.
+
+### Default Administrator Credentials
+* **Role Selection**: `ADMIN`
+* **Username**: `admin`
+* **Password**: `AdminPassword123!`
+* **Seeded Email**: `admin@enterprise.com`
+
+### Self-Registration
+* Click **"Don't have an account? Create one"** on the login screen.
+* Register as either `EMPLOYEE` or `ADMIN`.
+* **Password Policy**: Must be at least 8 characters long, containing at least one uppercase letter, one lowercase letter, one number, and one special character (e.g., `@$!%*?&`).
+* Employees can map their profile with their designated Employee ID (e.g., `EMP-1011`).
+
+---
+
+## ✨ Key Features & Capabilities
+
+### 1. Role-Based Dashboards
+* **Admin Dashboard**: Real-time telemetry, including active counts (Employees, Projects, Tasks completed), team work load, pending approvals, and system-wide action triggers (Create Project, Add Employee, View Audit Logs).
+* **Employee Portal**: Workload summary, assigned tasks list, upcoming deadlines, leave request triggers, and payroll access.
+
+### 2. Employee Management (CRUD) & Profile Uploads
+* Full lifecycle administration (create, read, update, delete) of employee records.
+* Search and filter by Employee Code, Name, Department, Designation, and employment status (`ACTIVE`, `ON_LEAVE`, `TERMINATED`).
+* **Profile Image Upload**: Integrated avatar upload supporting JPG, PNG, and WEBP formats (up to 5MB multipart uploads) with visual preview and backend-linked updates.
+
+### 3. Project Allocations & Auto-Progress
+* Creation and mapping of enterprise projects.
+* **Auto-Recalculation**: Project completion percentage is automatically computed based on the progress/completion of its constituent tasks.
+
+### 4. Interactive Task Kanban Board
+* Visual Kanban board with status columns: `TO DO`, `IN PROGRESS`, `IN REVIEW`, and `COMPLETED`.
+* Status tracking cards with individual assignments, description, and urgency parameters.
+
+### 5. Reporting & Compliance
+* **Attendance Tracking**: Self-service check-in/check-out simulation and manager reports.
+* **Payroll & Payslip Management**: Secure access to payslips and earnings summaries.
+
+### 6. Security Audit Logging
+* **SOC Audit Compliance**: Automatically logs all key operations (user login, creation, modification, deletion) with details of the performing username, affected entity, client IP address, and exact timestamps.
+
+### 7. Email Notification Dispatch
+* Automated notification system that fires emails to employees or admins on key lifecycle events (e.g., registration confirmation, status changes, task assignments, and payroll generation).
+
+### 8. Premium Dark & Light Themes
+* Supports instant **Dark Mode** and Light Mode toggling.
+* Styled with custom Azure colors for modern, professional aesthetics and state-preservation on page refreshes.
+
+### 9. Modern Developer Tools & DevOps
+* **Swagger REST API Inspector**: Integrated Swagger UI inspector inside the React application to browse, verify, and execute REST endpoints on the fly.
+* **Docker Containerization**: Pre-configured Docker orchestration via multi-stage `Dockerfile` and `docker-compose.yml` to launch MySQL, Java Spring Boot backend, and React Vite frontend in single-command orchestrations.
+* **Unit Testing Suite**: Robust code coverage through JUnit 5 and Mockito tests (e.g., `AuthControllerTest.java` and `EmployeeServiceTest.java`) ensuring API stability and correct logic flow.
+
+---
+
 ## 🖼 Application Screenshots
 
 Below are screenshots of the responsive enterprise interface:

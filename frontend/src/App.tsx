@@ -183,6 +183,9 @@ function AppContent() {
 
                 {activeModuleId === 'module4_reports' && <ReportsModuleView />}
 
+                {activeModuleId === 'employee_reports' && <ReportsModuleView />}
+
+
                 {activeModuleId === 'module5_profile' && <ProfileSettingsView />}
 
                 {activeModuleId === 'module5_settings' && <SettingsView />}
