@@ -20,7 +20,10 @@ import { ProfileSettingsView } from './modules/profile/ProfileSettingsView';
 import { SettingsView } from './modules/profile/SettingsView';
 
 function AppContent() {
-  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('theme_mode');
+    return (saved === 'light' || saved === 'dark') ? saved : 'dark';
+  });
   const [activeModuleId, setActiveModuleId] = useState<string>('admin_dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false);
   const [openSwaggerModal, setOpenSwaggerModal] = useState<boolean>(false);
@@ -94,7 +97,11 @@ function AppContent() {
   const theme = getAzureTheme(themeMode);
 
   const toggleTheme = () => {
-    setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setThemeMode((prev) => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme_mode', next);
+      return next;
+    });
   };
 
   const activeModuleItem = MODULE_ITEMS.find((m) => m.id === activeModuleId) || MODULE_ITEMS[0];
@@ -167,13 +174,21 @@ function AppContent() {
                   <AdminDashboard onNavigateModule={(id) => setActiveModuleId(id)} />
                 )}
 
-                {activeModuleId === 'employee_dashboard' && <EmployeeDashboard />}
+                {activeModuleId === 'employee_dashboard' && (
+                  <EmployeeDashboard onNavigateModule={(id) => setActiveModuleId(id)} />
+                )}
 
-                {activeModuleId === 'employee_tasks' && <EmployeeDashboard filter="assigned" />}
+                {activeModuleId === 'employee_tasks' && (
+                  <EmployeeDashboard filter="assigned" onNavigateModule={(id) => setActiveModuleId(id)} />
+                )}
 
-                {activeModuleId === 'employee_completed' && <EmployeeDashboard filter="completed" />}
+                {activeModuleId === 'employee_completed' && (
+                  <EmployeeDashboard filter="completed" onNavigateModule={(id) => setActiveModuleId(id)} />
+                )}
 
-                {activeModuleId === 'employee_deadlines' && <EmployeeDashboard filter="deadlines" />}
+                {activeModuleId === 'employee_deadlines' && (
+                  <EmployeeDashboard filter="deadlines" onNavigateModule={(id) => setActiveModuleId(id)} />
+                )}
 
                 {activeModuleId === 'module2_employees' && <EmployeeModuleView />}
 
