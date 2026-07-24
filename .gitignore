@@ -1,0 +1,36 @@
+# Frontend Node / Vite Ignores
+node_modules/
+frontend/node_modules/
+build/
+frontend/build/
+dist/
+frontend/dist/
+coverage/
+frontend/coverage/
+.DS_Store
+*.log
+.env*
+!frontend/.env.example
+
+# Backend Maven / Java Ignores
+backend/target/
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+.mvn/
+apache-maven-*/
+
+# IDE Ignores
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+.factorypath
+.metadata/
+bin/

@@ -1,0 +1,6 @@
+{
+  "name": "Smart Employee & Project Management System",
+  "description": "Enterprise-grade Smart Employee & Project Management System inspired by Azure Portal, Jira, and Zoho People, built with Material UI, React, Express, Spring Boot architecture patterns, JWT Security, REST APIs, MySQL schema design, and Docker deployment.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

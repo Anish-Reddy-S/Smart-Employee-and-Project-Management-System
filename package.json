@@ -1,0 +1,11 @@
+{
+  "name": "smartmanager-root",
+  "version": "1.0.0",
+  "description": "Root orchestrator for Smart Employee & Project Management Full-Stack Application",
+  "scripts": {
+    "install:frontend": "npm install --prefix frontend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "build:frontend": "npm run build --prefix frontend",
+    "lint:frontend": "npm run lint --prefix frontend"
+  }
+}
