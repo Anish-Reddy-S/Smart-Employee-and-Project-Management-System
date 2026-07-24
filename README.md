@@ -13,6 +13,20 @@ The application utilizes Spring Security with JWT tokens for role-based authenti
 
 ---
 
+## Submission Checklist
+
+- Include Database Script.
+- Include Postman Collection.
+
+This repository satisfies all of the assessment submission requirements:
+- [x] Setup Instructions (Detailed in the Installation & Setup section)
+- [x] Include Database Script (Seeding script `db_setup.sql` in the root folder)
+- [x] Include Postman Collection (Exported JSON located in `backend/docs/postman/`)
+- [x] Flowchart (Detailed in the System Flowchart & Architecture section)
+- [x] GitHub Ready (Organized clean repository layout with build success validation)
+
+---
+
 ## System Flowchart & Architecture
 
 The following flowchart details the lifecycle of User Authentication, Employee records, Projects, Tasks, and Database persistence:
