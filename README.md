@@ -13,20 +13,6 @@ The application utilizes Spring Security with JWT tokens for role-based authenti
 
 ---
 
-## Submission Checklist
-
-- Include Database Script.
-- Include Postman Collection.
-
-This repository satisfies all of the assessment submission requirements:
-- [x] Setup Instructions (Detailed in the Installation & Setup section)
-- [x] Include Database Script (Seeding script `db_setup.sql` in the root folder)
-- [x] Include Postman Collection (Exported JSON located in `backend/docs/postman/`)
-- [x] Flowchart (Detailed in the System Flowchart & Architecture section)
-- [x] GitHub Ready (Organized clean repository layout with build success validation)
-
----
-
 ## System Flowchart & Architecture
 
 The following flowchart details the lifecycle of User Authentication, Employee records, Projects, Tasks, and Database persistence:
@@ -172,7 +158,7 @@ Below are the major API endpoints configured in the Spring Boot backend:
 
 ### Clone
 ```bash
-git clone https://github.com/Anish-Reddy-S/Evernoth.git
+git clone https://github.com/Anish-Reddy-S/Smart-Employee-and-Project-Management-System.git
 ```
 
 ### Database Setup
@@ -249,7 +235,7 @@ To sign in and test the system, you can use the default seeded account or regist
 ---
 
 ## Postman Collection
-A complete Postman collection is included in the workspace at `backend/docs/postman/SmartManager_API.postman_collection.json`. 
+A complete Postman collection is included in the workspace at [SmartManager_API.postman_collection.json](file:///c:/Users/sanna/Downloads/Evernorth/backend/docs/postman/SmartManager_API.postman_collection.json).
 
 Import this collection into Postman to run tests for:
 - User Authentication (Login, Register JWT validation)
@@ -260,7 +246,7 @@ Import this collection into Postman to run tests for:
 ---
 
 ## Database Script
-The unified MySQL script `db_setup.sql` is provided in the repository root. This script handles database schema creation (smart_management_db), role allocations, table constraints, and initial mock data seed values.
+The unified MySQL script [db_setup.sql](file:///c:/Users/sanna/Downloads/Evernorth/db_setup.sql) is provided in the repository root. This script handles database schema creation (smart_management_db), role allocations, table constraints, and initial mock data seed values.
 
 ---
 
