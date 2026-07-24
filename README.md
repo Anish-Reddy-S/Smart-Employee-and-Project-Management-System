@@ -154,45 +154,6 @@ Below are the major API endpoints configured in the Spring Boot backend:
 
 ---
 
-## Screenshots
-
-### Login
-*(Add Screenshot)*
-![Login Screen](screenshots/login.png)
-*Modern dual-mode sign-in view with self-registration panels.*
-
-### Admin Dashboard
-*(Add Screenshot)*
-![Admin Dashboard](assets/dashboard_screenshot.jpg)
-*High-fidelity portal showcasing active counts, team load, and project metrics.*
-
-### Employee Dashboard
-*(Add Screenshot)*
-![Employee Dashboard](screenshots/employee_dashboard.png)
-*Personal home view showing checklist cards, quick actions, and attendance log.*
-
-### Employee Management
-*(Add Screenshot)*
-![Employee Management](screenshots/employee_crud.png)
-*Directory list with inline editing, search queries, and employee profile creation.*
-
-### Project Management
-*(Add Screenshot)*
-![Project Management](screenshots/project_board.png)
-*Overview of project codes, budgets, and progress calculations.*
-
-### Task Management
-*(Add Screenshot)*
-![Task Kanban Board](assets/kanban_screenshot.jpg)
-*Interactive task board sorting cards across active workflow columns.*
-
-### Reports
-*(Add Screenshot)*
-![Reports View](screenshots/reports.png)
-*Details of audit logs, attendance logs, and payroll items with Excel/PDF export buttons.*
-
----
-
 ## Installation & Setup
 
 ### Clone
