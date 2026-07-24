@@ -19,57 +19,22 @@ The following flowchart details the lifecycle of User Authentication, Employee r
 
 ```mermaid
 flowchart TD
-    %% Define Groups
-    subgraph Client [Client Application — React TS]
-        UI[Material UI User Interface]
-        AuthCtx[AuthContext — JWT Claims Cache]
-        DataCtx[DataContext — State/Cache Manager]
-    end
+    %% Define Nodes with clean styling
+    UI[React Client UI]
+    Security[Spring Security JWT Filter]
+    Controller[REST API Controllers]
+    JPA[JPA Entities & Repositories]
+    DB[(MySQL Relational Database)]
 
-    subgraph SecurityLayer [Spring Security JWT Firewall]
-        AuthFilter[JwtAuthenticationFilter]
-        SecCtx[SecurityContextHolder]
-        TokenVerifier[JwtUtils HMAC-256 Signatures]
-    end
+    %% Execution Flow
+    UI -->|1. Send HTTP Request with JWT Header| Security
+    Security -->|2. Verify JWT & Authorize Role| Controller
+    Controller -->|3. Invoke Business Operations| JPA
+    JPA -->|4. Persist / Query Data via SQL| DB
 
-    subgraph Controllers [REST API Controllers]
-        AuthCtrl[AuthController /api/auth/*]
-        EmpCtrl[EmployeeController /api/employees/*]
-        ProjCtrl[ProjectController /api/projects/*]
-        TaskCtrl[TaskController /api/tasks/*]
-    end
-
-    subgraph Entities [Hibernate / JPA Entity Mapping]
-        UserEnt[User Entity]
-        EmpEnt[Employee Entity]
-        ProjEnt[Project Entity]
-        TaskEnt[Task Entity]
-    end
-
-    subgraph Database [Relational Database Layer]
-        MySQL[(MySQL 8.0 Engine)]
-    end
-
-    %% Flow lines
-    UI -->|1. Credentials Submit| AuthFilter
-    AuthFilter -->|2. Verify Token| TokenVerifier
-    TokenVerifier -->|3. Establish Context| SecCtx
-    
-    SecCtx -->|4. Routed Request| AuthCtrl & EmpCtrl & ProjCtrl & TaskCtrl
-    
-    %% Entity / JPA interaction
-    AuthCtrl -->|User CRUD| UserEnt
-    EmpCtrl -->|Employee CRUD| EmpEnt
-    ProjCtrl -->|Project CRUD| ProjEnt
-    TaskCtrl -->|Task CRUD| TaskEnt
-    
-    %% Database Persistence
-    UserEnt & EmpEnt & ProjEnt & TaskEnt -->|5. SQL Queries / Hibernate| MySQL
-    
-    %% Automatic Progress Recalculation Flow
-    TaskEnt -.->|6. Task Updated| ProjEnt
-    ProjEnt -.->|7. Recalculate Project Progress| DataCtx
-    DataCtx -.->|8. Update UI State| UI
+    %% Dynamic Sync Loop
+    DB -.->|5. Cascade Task Progress Changes| JPA
+    JPA -.->|6. Push Updated Project Status| UI
 ```
 
 ---
